@@ -3,6 +3,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RuangController;
+use App\Http\Controllers\BookingController;
 /*
     |--------------------------------------------------------------------------
     | API Routes
@@ -34,4 +35,15 @@ Route::group([
     Route::post('/create', [RuangController::class, 'create']);
     Route::post('/{ruangan}/update', [RuangController::class, 'update']); 
     Route::delete('/{id}/delete', [RuangController::class, 'delete']);   
+});
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'booking'
+], function ($router) {
+    Route::get('/all', [BookingController::class, 'index']);
+    Route::get('/{booking}/show', [BookingController::class, 'edit']);    
+    Route::post('/create', [BookingController::class, 'create']);
+    Route::post('/{booking}/update', [BookingController::class, 'update']); 
+    Route::delete('/{id}/delete', [BookingController::class, 'delete']);   
 });
